@@ -21,4 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         alert('Calibration started. (This would start webGazer calibration in the future)');
         // In the future, you would start webGazer's calibration here.
     });
+
+    // Alert box for browser popup
+    window.alert("Lock in!!! Your daydreams can wait until the weekend!")
 });
