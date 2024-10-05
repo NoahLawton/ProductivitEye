@@ -1,7 +1,8 @@
 let tracking = false;
+let looking = true;
 
 function startTracking() {
-    console.log("startTracking run")
+    console.log("Eye Tracking Started")
     tracking = true;
     
     // Request access to webcam
@@ -11,15 +12,18 @@ function startTracking() {
             webgazer.setGazeListener((data) => {
                 if (data) {
                     const confidence = data.confidence;
+                    console.log("Confidence: " + confidence)
                     if (confidence < 0.5) { // Threshold can be adjusted
-                        if (trackingActive) {
+                        looking = false
+                        if (!looking) {
                             console.log("User is not looking at the screen.");
-                            trackingActive = false; // Change tracking state
+                            looking = false; // Change looking state
                         }
                     } else {
-                        if (!trackingActive) {
-                            console.log("Tracking is active.");
-                            trackingActive = true; // Change tracking state
+                        looking = true
+                        if (looking) {
+                            console.log("User looking at screen");
+                            looking = true; // Change looking state
                         }
                     }
                 }
@@ -35,17 +39,18 @@ function startTracking() {
 function stopTracking() {
     tracking = false;
     webgazer.pause();
-    alert("Tracking stopped.");
+    console.log("Eye Tracking Stopped.");
 }
 
 function sendMessage() {
-    chrome.notifications.create({
-        type: 'basic',
-        iconUrl: 'icon.png',
-        title: 'Attention Required',
-        message: 'You stopped looking at the screen!',
-        priority: 2
-    });
+    alert("Hey, you stopped looking! Get back to work!")
+    // chrome.notifications.create({
+    //     type: 'basic',
+    //     iconUrl: 'icon.png',
+    //     title: 'Attention Required',
+    //     message: 'You stopped looking at the screen!',
+    //     priority: 2
+    // });
 }
 
 function checkTrackingState() {
@@ -62,7 +67,7 @@ function checkTrackingState() {
 checkTrackingState();
 
 // Optional: Check periodically (e.g., every 1 second) to see if the state changes
-setInterval(checkTrackingState, 1000);
+// setInterval(checkTrackingState, 1000);
 
 
 // startTracking();

@@ -11,10 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
     eyeTrackingCheckbox.addEventListener('change', function () {
         const eyeTrackingEnabled = eyeTrackingCheckbox.checked;
         chrome.storage.sync.set({ eyeTrackingEnabled }, function () {
-            alert('Settings saved!');
         });
     });
-
 
     // Save settings when "Save Settings" button is clicked
     saveBtn.addEventListener('click', function () {
