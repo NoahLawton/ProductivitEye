@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded" , function () {
     //inicialize the webgazer.js
     webgazer.setRegression("ridge")
     .setTracker('clmtrackr')
-    .setGazeListener(Function(data, clock) {
+    .setGazeListener(function(data, clock) {
         // Do something with gaze data
         console.log(data);
     })
