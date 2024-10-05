@@ -15,10 +15,5 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Settings saved!');
         });
     });
-
-    // Handle eye tracking calibration (dummy functionality)
-    calibrateBtn.addEventListener('click', function () {
-        alert('Calibration started. (This would start webGazer calibration in the future)');
-        // In the future, you would start webGazer's calibration here.
-    });
+    
 });
