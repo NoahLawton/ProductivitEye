@@ -2,9 +2,13 @@
     "manifest_version": 3,
     "name": "ProductivitEye",
     "description": "Base Level Extension",
+    "permissions": ["storage", "camera"],
     "version": "1.0",
     "action": {
       "default_popup": "hello.html",
       "default_icon": "hello_extensions.png"
+    },
+    "background": {
+        "service_worker": "background.js"
     }
   }
