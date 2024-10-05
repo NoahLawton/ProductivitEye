@@ -2,8 +2,17 @@
     "manifest_version": 3,
     "name": "ProductivitEye",
     "description": "Base Level Extension",
-    "permissions": ["activeTab","storage", "videoCapture"],
+    "permissions": ["activeTab","storage"],
     "version": "1.0",
+    "host_permissions": [
+      "*://*/*"
+    ],
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["webgazer.js", "content.js"]
+      }
+    ],
     "action": {
       "default_popup": "popup.html",
       "default_icon": "hello_extensions.png"
