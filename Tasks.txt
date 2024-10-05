@@ -1,0 +1,5 @@
+1. Chrome Extension
+2. Eye Tracker
+3. Timer
+4. messeges to remind user to focus
+5. 
