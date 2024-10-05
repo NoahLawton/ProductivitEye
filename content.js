@@ -10,9 +10,20 @@ function startTracking() {
         .then(function(stream) {
             // Start WebGazer and set up gaze listener
             webgazer.setGazeListener((data) => {
+                webgazer.showFaceOverlay(true);   // Show face overlay for better tracking
+                webgazer.showPredictionPoints(true);  // Enable prediction point display
+                if (!data) {
+                    console.log("No data yet")
+                }
+                if (data.x && data.y) {
+                    console.log("X position guess: " + data.x)
+                    console.log("Y position guess: " + data.y)
+                }
+                else {
+                    alert ("Get back to work!")
+                }
                 if (data) {
                     const confidence = data.confidence;
-                    console.log("Confidence: " + confidence)
                     if (confidence < 0.5) { // Threshold can be adjusted
                         looking = false
                         if (!looking) {
