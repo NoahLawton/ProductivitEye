@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "ProductivitEye",
     "description": "Base Level Extension",
-    "permissions": ["storage", "camera"],
+    "permissions": ["storage"],
     "version": "1.0",
     "action": {
       "default_popup": "settings.html",
@@ -11,7 +11,7 @@
     "content_scripts": [
         {
           "matches": ["<all_urls>"],
-          "js": ["libs/webgazer.js", "content.js"]
+          "js": ["libs/webgazer.js"]
         }
       ],
       "options_page": "settings.html"
