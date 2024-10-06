@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded" , function () {
         // Do something with gaze data
         console.log(data);
     })
-    .begin();
+    
 
     navigator.mediaDevices.getUserMedia({ video: true, audio: false })
       .then(stream => {
@@ -18,4 +18,22 @@ document.addEventListener("DOMContentLoaded" , function () {
         console.error('Error accessing camera: ', error);
       });
 
+}).begin();
+
+document.getElementById('start').addEventListener('click', () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.scripting.executeScript({
+          target: { tabId: tabs[0].id },
+          function: startTracking
+      });
+  });
+});
+
+document.getElementById('stop').addEventListener('click', () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.scripting.executeScript({
+          target: { tabId: tabs[0].id },
+          function: stopTracking
+      });
+  });
 });
