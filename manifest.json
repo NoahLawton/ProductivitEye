@@ -1,11 +1,24 @@
 {
-    "manifest_version": 3,
-    "name": "ProductivitEye",
-    "description": "Base Level Extension",
-    "permissions": ["storage", "camera","notifications"],
-    "version": "1.0",
-    "action": {
-      "default_popup": "hello.html",
-      "default_icon": "ProductivitEye_Logo_KH.png"
+  "manifest_version": 3,
+  "name": "ProductivitEye",
+  "description": "Base Level Extension",
+  "permissions": ["storage"],
+  "version": "1.0",
+  "action": {
+    "default_popup": "settings.html",
+    "default_icon": "ProductivitEye_Logo_KH.png"
+  },
+  "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["libs/webgazer.js", "content.js"]
+      }
+  ], 
+  "web_accessible_resource": [
+    {
+      "resources": ["libs/webgazer.js"],
+      "matches": ["<all_urls>"]
     }
-  }
+  ],
+  "options_page": "settings.html"
+}

@@ -1,27 +1,53 @@
 document.addEventListener('DOMContentLoaded', function () {
     const eyeTrackingCheckbox = document.getElementById('eyeTracking');
     const saveBtn = document.getElementById('saveBtn');
-    const calibrateBtn = document.getElementById('calibrateBtn');
 
     // Load saved settings from Chrome storage
     chrome.storage.sync.get('eyeTrackingEnabled', function (data) {
-        eyeTrackingCheckbox.checked = data.eyeTrackingEnabled || false;
+        eyeTrackingCheckbox.checked = data.eyeTrackingEnabled || false;     
     });
 
-    // Save settings when "Save Settings" button is clicked
-    saveBtn.addEventListener('click', function () {
+    // Save settings when the checkbox is clicked
+    eyeTrackingCheckbox.addEventListener('change', function(){
         const eyeTrackingEnabled = eyeTrackingCheckbox.checked;
-        chrome.storage.sync.set({ eyeTrackingEnabled }, function () {
-            alert('Settings saved!');
+        chrome.storage.synce.set({ eyeTrackingEnabled }, function () {
         });
     });
 
-    // Handle eye tracking calibration (dummy functionality)
-    calibrateBtn.addEventListener('click', function () {
-        alert('Calibration started. (This would start webGazer calibration in the future)');
-        // In the future, you would start webGazer's calibration here.
+    // Save settings when "Save Settings" button is clicked
+    saveBtn.addEventListener('click', function() {
+        const eyeTrackingEnabled = eyeTrackingCheckbox.checked;
+        chrome.storage.sync.set({ eyeTrackingEnabled }, function () {
+            console.log("Settings saved!")
+            alert('Settings saved!');
+
+            // Notify content.js to start or stop tracking based on the checkbox state
+            if (eyeTrackingEnabled) {
+                console.log("startTracking called")
+                alert("startTracking called")
+                startTracking();
+            } else {
+                stopTracking(); // Stop tracking if the checkbox is unchecked
+            }
+        });
     });
 
-    // Alert box for browser popup
-    window.alert("Lock in!!! Your daydreams can wait until the weekend!")
+    // Function to send a message to content.js to start tracking
+    function startTracking() {
+        chrome.runtime.sendMessage({ action: 'startTracking' });
+    }
+
+    // Function to send message to content.js to stop tracking
+    function stopTracking() {
+        chrome.runtime.sendMessage({ action: 'stopTracking' });
+    }
+
+    // Listen for messages from content.js (optional, for feedback or changes)
+    chrome.runtime.onMessage.addLIstener((request, sender, sendResponse) => {
+        if (request.action === 'trackingStarted') {
+            console.log('Tracking has started.');
+        } else if (request.action === 'trackingStopped') {
+            console.log('Tracking has stopped.');
+        }
+    });
 });
