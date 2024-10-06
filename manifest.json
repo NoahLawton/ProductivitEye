@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "ProductivitEye",
   "description": "Base Level Extension",
-  "permissions": ["storage"],
+  "permissions": ["notifications","storage"],
   "version": "1.0",
   "action": {
     "default_popup": "settings.html",
@@ -16,7 +16,7 @@
     ],
     "web_accessible_resources": [
       {
-        "resources": ["libs/webgazer.js"],
+        "resources": ["libs/webgazer.js", "ProductivitEye_Logo_KH.png", "Alarm popup.png" ],
         "matches": ["<all_urls>"]
       }
     ],

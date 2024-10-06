@@ -27,7 +27,12 @@ function startTracking() {
                 }
                 else { // No gaze data found
                     console.log("Get back to work")
-                    alert ("Get back to work!")
+                    try{
+                        sendMessage();
+                    } catch(error){
+                        console.error("Error sending message:", error);
+                    }
+                    
                     throw new Error("Invalid gaze data")
                 }
                 if (data) {
@@ -61,15 +66,19 @@ function stopTracking() {
     console.log("Eye Tracking Stopped.");
 }
 
+//supposed to send a popup through the extension containing the message and Image
 function sendMessage() {
     alert("Hey, you stopped looking! Get back to work!")
-    // chrome.notifications.create({
-    //     type: 'basic',
-    //     iconUrl: 'icon.png',
-    //     title: 'Attention Required',
-    //     message: 'You stopped looking at the screen!',
-    //     priority: 2
-    // });
+     chrome.notifications.create({
+        type: 'basic',
+        iconUrl: chrome.runtime.getURL('ProductivitEye_Logo_KH.png'),
+        title: 'Attention Required',
+        message: 'You stopped looking at the screen!',
+        imageUrl: chrome.runtime.getURL('Alarm Popup.png'),
+        priority: 2
+    }, function(notificationId) {
+        console.log("Notification created with ID:", notificationId);
+    });
 }
 
 function checkTrackingState() {
