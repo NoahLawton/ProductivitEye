@@ -20,8 +20,12 @@ function startTracking() {
                 webgazer.showPredictionPoints(true);  // Hides prediction point display
                 if (!data) {
                     console.log("No data yet")
+                    return;
                 }
-                if (data && data.x !== null && data.y !== null) {
+
+                console.log("Gaze data:", data);
+
+                if (data.x !== null && data.y !== null) {
                     console.log("X position guess: " + data.x)
                     console.log("Y position guess: " + data.y)
                 }
@@ -36,20 +40,19 @@ function startTracking() {
                     throw new Error("Invalid gaze data")
                 }
                 if (data) {
-                    const confidence = data.confidence;
+                    const confidence = data.confidence || 1; // Default to 1 if undefined
                     if (confidence < 0.5) { // This doesn't work. confidence is always undefined
-                        looking = false
-                        if (!looking) {
-                            console.log("User is not looking at the screen.");
-                            looking = false; // Change looking state
-                        }
+                        looking = false;
+                        console.log("User is not looking at the screen.");
+                        sendMessage();
+                        
                     } else {
                         looking = true
-                        if (looking) {
-                            console.log("User looking at screen");
-                            looking = true; // Change looking state
-                        }
-                    }
+                        console.log("User looking at screen");                        
+                    } 
+                } else {
+                    console.log("Get back to work")
+                    sendMessage();
                 }
             }).begin();
 
