@@ -16,8 +16,8 @@ function startTracking() {
             // Start WebGazer and set up gaze listener
             webgazer.setGazeListener((data) => {
                 webgazer.showVideoPreview(true); // Hides the camera preview
-                webgazer.showFaceOverlay(false);   // Hides face overlay
-                webgazer.showPredictionPoints(false);  // Hides prediction point display
+                webgazer.showFaceOverlay(true);   // Hides face overlay
+                webgazer.showPredictionPoints(true);  // Hides prediction point display
                 if (!data) {
                     console.log("No data yet")
                 }
