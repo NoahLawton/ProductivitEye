@@ -1,3 +1,8 @@
+/*
+// TODO
+   Implement text notifications
+*/
+
 let tracking = false;
 let looking = true;
 
@@ -10,21 +15,24 @@ function startTracking() {
         .then(function(stream) {
             // Start WebGazer and set up gaze listener
             webgazer.setGazeListener((data) => {
-                webgazer.showFaceOverlay(true);   // Show face overlay for better tracking
-                webgazer.showPredictionPoints(true);  // Enable prediction point display
+                webgazer.showVideoPreview(false); // Hides the camera preview
+                webgazer.showFaceOverlay(false);   // Hides face overlay
+                webgazer.showPredictionPoints(false);  // Hides prediction point display
                 if (!data) {
                     console.log("No data yet")
                 }
-                if (data.x && data.y) {
+                if (data && data.x !== null && data.y !== null) {
                     console.log("X position guess: " + data.x)
                     console.log("Y position guess: " + data.y)
                 }
-                else {
+                else { // No gaze data found
+                    console.log("Get back to work")
                     alert ("Get back to work!")
+                    throw new Error("Invalid gaze data")
                 }
                 if (data) {
                     const confidence = data.confidence;
-                    if (confidence < 0.5) { // Threshold can be adjusted
+                    if (confidence < 0.5) { // This doesn't work. confidence is always undefined
                         looking = false
                         if (!looking) {
                             console.log("User is not looking at the screen.");
