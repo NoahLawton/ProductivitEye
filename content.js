@@ -1,6 +1,6 @@
 /*
 // TODO
-    Implement text notifications
+   Implement text notifications
 */
 
 let tracking = false;
@@ -9,30 +9,30 @@ let looking = true;
 function startTracking() {
     console.log("Eye Tracking Started")
     tracking = true;
-
-    // Request access to webcame
-    navigator.mediaDevices.getUserMedia({video: true, audio: false})
+    
+    // Request access to webcam
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
         .then(function(stream) {
-            //Start WebGazer and set up gaze listener
-            wegbgazer.setGazeListener((data) => {
-                webgazer.showVideoPreview(false); // Hides teh camera preview
-                webgazer.showFaceOverlay(flase); // HIdes face overlay
-                webgazer.showPreditionPoints(false); // Hides prediction point display
+            // Start WebGazer and set up gaze listener
+            webgazer.setGazeListener((data) => {
+                webgazer.showVideoPreview(false); // Hides the camera preview
+                webgazer.showFaceOverlay(false);   // Hides face overlay
+                webgazer.showPredictionPoints(false);  // Hides prediction point display
                 if (!data) {
                     console.log("No data yet")
                 }
                 if (data && data.x !== null && data.y !== null) {
-                    console.log("X position guesss: " + data.x)
-                    console.log("Y position guess: " +  data.y)
+                    console.log("X position guess: " + data.x)
+                    console.log("Y position guess: " + data.y)
                 }
                 else { // No gaze data found
                     console.log("Get back to work")
-                    alert("Get back to work!")
+                    alert ("Get back to work!")
                     throw new Error("Invalid gaze data")
                 }
                 if (data) {
                     const confidence = data.confidence;
-                    if (confidence < 0.5) { // This doesn't work. Confidence is always undefined
+                    if (confidence < 0.5) { // This doesn't work. confidence is always undefined
                         looking = false
                         if (!looking) {
                             console.log("User is not looking at the screen.");
@@ -41,7 +41,7 @@ function startTracking() {
                     } else {
                         looking = true
                         if (looking) {
-                            console.log("User looking at screen")
+                            console.log("User looking at screen");
                             looking = true; // Change looking state
                         }
                     }
@@ -51,24 +51,24 @@ function startTracking() {
             console.log("WebGazer is ready!");
         })
         .catch(err => {
-            console.error("Error accessing webcame:", err);
+            console.error("Error accessing webcam:", err);
         });
 }
 
 function stopTracking() {
     tracking = false;
     webgazer.pause();
-    console.log("Eye Tracking Stoppeed.");
+    console.log("Eye Tracking Stopped.");
 }
 
 function sendMessage() {
     alert("Hey, you stopped looking! Get back to work!")
-    // chrome.notifications.create ({
-    //      type: 'basic', 
-    //      iconURL: 'icon.png'
-    //      title: 'Atgtention Required',
-    //      message: 'You stopped looking at teh screen!',
-    //      priority: 2
+    // chrome.notifications.create({
+    //     type: 'basic',
+    //     iconUrl: 'icon.png',
+    //     title: 'Attention Required',
+    //     message: 'You stopped looking at the screen!',
+    //     priority: 2
     // });
 }
 

@@ -2,40 +2,40 @@ body {
     font-family: Arial, sans-serif;
     margin: 20px;
     padding: 10px;
-}
-
-h1 {
+  }
+  
+  h1 {
     font-size: 24px;
-}
-
-.setting {
+  }
+  
+  .setting {
     margin-bottom: 15px;
-}
-
-label {
+  }
+  
+  label {
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
-}
-
-button {
+  }
+  
+  button {
     padding: 10px;
     background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-
-button:disabled {
+  }
+  
+  button:disabled {
     background-color: #ccc;
-}
-
-input[type="range"] {
+  }
+  
+  input[type="range"] {
     width: 100%;
-}
-
-#sensitivity-value {
+  }
+  
+  #sensitivity-value {
     font-size: 18px;
     margin-left: 10px;
-}
+  }

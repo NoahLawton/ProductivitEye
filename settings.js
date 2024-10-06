@@ -4,18 +4,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Load saved settings from Chrome storage
     chrome.storage.sync.get('eyeTrackingEnabled', function (data) {
-        eyeTrackingCheckbox.checked = data.eyeTrackingEnabled || false;     
+        eyeTrackingCheckbox.checked = data.eyeTrackingEnabled || false;
     });
 
     // Save settings when the checkbox is clicked
-    eyeTrackingCheckbox.addEventListener('change', function(){
+    eyeTrackingCheckbox.addEventListener('change', function () {
         const eyeTrackingEnabled = eyeTrackingCheckbox.checked;
-        chrome.storage.synce.set({ eyeTrackingEnabled }, function () {
+        chrome.storage.sync.set({ eyeTrackingEnabled }, function () {
         });
     });
 
     // Save settings when "Save Settings" button is clicked
-    saveBtn.addEventListener('click', function() {
+    saveBtn.addEventListener('click', function () {
         const eyeTrackingEnabled = eyeTrackingCheckbox.checked;
         chrome.storage.sync.set({ eyeTrackingEnabled }, function () {
             console.log("Settings saved!")
@@ -37,13 +37,13 @@ document.addEventListener('DOMContentLoaded', function () {
         chrome.runtime.sendMessage({ action: 'startTracking' });
     }
 
-    // Function to send message to content.js to stop tracking
+    // Function to send a message to content.js to stop tracking
     function stopTracking() {
         chrome.runtime.sendMessage({ action: 'stopTracking' });
     }
 
     // Listen for messages from content.js (optional, for feedback or changes)
-    chrome.runtime.onMessage.addLIstener((request, sender, sendResponse) => {
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         if (request.action === 'trackingStarted') {
             console.log('Tracking has started.');
         } else if (request.action === 'trackingStopped') {

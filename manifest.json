@@ -13,12 +13,12 @@
         "matches": ["<all_urls>"],
         "js": ["libs/webgazer.js", "content.js"]
       }
-  ], 
-  "web_accessible_resource": [
-    {
-      "resources": ["libs/webgazer.js"],
-      "matches": ["<all_urls>"]
-    }
-  ],
-  "options_page": "settings.html"
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": ["libs/webgazer.js"],
+        "matches": ["<all_urls>"]
+      }
+    ],
+    "options_page": "settings.html"
 }
